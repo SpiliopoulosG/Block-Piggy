@@ -21,11 +21,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButton(0)) 
         {
             Vector3 touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
-            if (touchPos.x < 0) {
-                rb.AddForce(Vector2.left * moveSpeed); 
-            } else {
-                rb.AddForce(Vector2.right * moveSpeed);
-            }
+             transform.position = new Vector3(touchPos.x, transform.position.y, transform.position.z);
         } 
         else 
         {

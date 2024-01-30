@@ -10,25 +10,19 @@ public class GameManager : MonoBehaviour
     public float maxX;
     public Transform spawnPoint;
     public float spawnRate;
-    public GameObject tapText;
+    public GameObject playText;
+    public GameObject exitText;
     public TextMeshProUGUI scoreText;
     int score = 0;
-    bool gameStarted = false;
-
-    // Update is called once per frame
-    void Update()
+    
+    void Start()
     {
-        if (Input.GetMouseButton(0) && !gameStarted)
-        {
-            gameStarted = true;
-            StartSpawning();
-            tapText.SetActive(false);
-        }
+        Time.timeScale = 0;
     }
 
     void StartSpawning() 
     {
-        InvokeRepeating("SpawnBlock", 0.5f, spawnRate);
+        InvokeRepeating(nameof(SpawnBlock), 0.5f, spawnRate);
     }
 
     private void SpawnBlock() 
@@ -42,5 +36,17 @@ public class GameManager : MonoBehaviour
         score++;
 
         scoreText.text = score.ToString();
+    }
+
+    public void StartGame() {
+        Time.timeScale = 1;
+        StartSpawning();
+        playText.SetActive(false);
+        exitText.SetActive(false);
+    }
+
+    public void ExitGame() {
+        Debug.Log("Exit Application");
+        Application.Quit(); 
     }
 }
